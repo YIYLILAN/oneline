@@ -1,11 +1,16 @@
 import pygame
 
+# variable definition
+WIDTH, HEIGHT = 620, 480
+
+
+
 # Main Pygame loop integrating the Game State Manager
 
 def main():
     pygame.init()
 
-    screen = pygame.display.set_mode((640,480))
+    screen = pygame.display.set_mode((WIDTH,HEIGHT))
     pygame.display.set_caption("ONE_LINE")
     clock = pygame.time.Clock()
     
