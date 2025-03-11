@@ -1,7 +1,8 @@
 import pygame
+import sys
+import time
 
-# variable definition
-WIDTH, HEIGHT = 620, 480
+
 
 
 
@@ -10,19 +11,24 @@ WIDTH, HEIGHT = 620, 480
 def main():
     pygame.init()
 
-    screen = pygame.display.set_mode((WIDTH,HEIGHT))
+    screen = pygame.display.set_mode((480,600))
     pygame.display.set_caption("ONE_LINE")
     clock = pygame.time.Clock()
     
-
+    
     running = True
     while running:
-        dt = clock.tick(60)/1000.0
+        clock.tick(60)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
 
 
 
 
 
+        pygame.display.flip()
 
     pygame.quit()
 
