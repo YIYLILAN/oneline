@@ -1,11 +1,10 @@
-import pygame
 from GRID import Grid
 
 class Player:
 
-    def __init__(self, grid, start_pos):
+    def __init__(self, Grid, start_pos):
         
-        self.grid = grid  # The grid object(different game board)
+        self.grid = Grid  # The grid object(different game board)
         self.row, self.col = start_pos 
         self.route = set()  # Stores visited cells
         self.route.add((self.row, self.col))  # Mark start position as visited on the route

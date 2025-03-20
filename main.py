@@ -1,7 +1,7 @@
 import pygame
 import sys
 import time
-
+from config.setting import WIDTH,HEIGHT
 
 
 
@@ -11,7 +11,7 @@ import time
 def main():
     pygame.init()
 
-    screen = pygame.display.set_mode((480,600))
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("ONE_LINE")
     clock = pygame.time.Clock()
     
@@ -26,10 +26,7 @@ def main():
 
 
 
-
-
         pygame.display.flip()
-
     pygame.quit()
 
 
