@@ -1,5 +1,4 @@
 import pygame
-from GAME import Game
 
 class Buttons(pygame.sprite.Sprite):
     def __init__(self, x, y, image):
@@ -8,8 +7,8 @@ class Buttons(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=(x, y))
 
 
-    def draw(self):
-        Game.blit(self.image,(self.rect.x,self.rect.y))
+    def draw(self, screen):
+        screen.blit(self.image,(self.rect.x,self.rect.y))
         
     def press_key(self):
         #get mouse position
