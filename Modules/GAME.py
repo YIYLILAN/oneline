@@ -1,6 +1,6 @@
 import pygame
 
-# --- Constants ---
+#Constants
 ROW, COL = 6, 4
 START = (0, 3)
 END = (5, 0)
@@ -26,51 +26,43 @@ maze = [
 walkable_tiles = sum(1 for row in maze for cell in row if cell != 1)
 
 
-# --- Base Game Class ---
+# Base Game Class
 class Game:
     """
-    Base class for all games.
-
-    - **Encapsulation**: Contains core game logic (init, loop, input handling, etc.).
-    - **Inheritance**: Other games (e.g., MazeGame) can extend this class.
+    - Encapsulation: Contains core game logic (init, loop, input handling, etc.).
+    - Inheritance: Other classes (mazeGame) can extend this class.
     """
 
     def __init__(self):
-        """Initializes the game window and clock"""
+        """Initialiases the game window and clock"""
         pygame.init()
         self.window = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption("ONE_LINE")
         self.clock = pygame.time.Clock()
-        self.running = True  # Controls the game loop
+        self.running = True  # make sure the game loop running
 
     def process_input(self):
         """
-        Handles player input (e.g., quitting the game).
-
-        - **Polymorphism**: This method is overridden in MazeGame to handle movement.
+        Handles player input
+        - Polymorphism: This method is overridden in MazeGame to handle movement
         """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False  # Exit game loop
 
-    def update(self):
-        """Updates game state (meant to be overridden in subclasses)."""
-        pass
 
     def render(self):
-        """Draws game elements (meant to be overridden in subclasses)."""
+        #Draws game elements, to be overridden in subclasses
         self.window.fill(BG_COLOUR)
         pygame.display.update()
 
     def run(self):
         """
-        Main game loop.
-        
-        - **Encapsulation**: Ensures that the game runs in a structured manner.
+        -Encapsulation: Ensures that the game runs in a structured manner
         """
         while self.running:
             self.process_input()
-            self.update()
+            
             self.render()
             self.clock.tick(FPS)
         pygame.quit()
@@ -79,15 +71,15 @@ class Game:
 # --- Maze Game Class (Inherits from Game) ---
 class MazeGame(Game):
     """
-    A maze game where the player moves through a grid.
+    The main class demonstration the game mechanic.
 
-    - **Inheritance**: Extends the Game class to implement specific game logic.
-    - **Encapsulation**: Keeps player position and game state management within the class.
+    -Inheritance: Extends the Game class to implement specific game logic.
+    -Encapsulation: Keeps player position and game state management within the class.
     """
 
     def __init__(self):
         """
-        Initializes the maze game by calling the Game constructor and setting player variables.
+        Initialises the maze game by calling the Game constructor and setting player variables.
         """
         super().__init__()  # Calls the parent class constructor
         self.player_pos = START  # Player's position in the maze
@@ -97,7 +89,7 @@ class MazeGame(Game):
         """
         Moves the player while checking walls and visited cells.
 
-        - **Encapsulation**: Player movement logic is inside the MazeGame class.
+        -Encapsulation: Player movement logic is inside the MazeGame class.
         """
         new_x = self.player_pos[0] + dx
         new_y = self.player_pos[1] + dy
@@ -113,15 +105,15 @@ class MazeGame(Game):
         # Check win condition
         if self.player_pos == END:
             if len(self.visited) == walkable_tiles:
-                print("CONGRATS! You passed all tiles.")
+                print("CONGRATS! U passed all tiles.")
             else:
-                print("You reached the end but didn't pass all tiles.")
+                print(" U reached the end but didnt pass all tiles.")
 
     def process_input(self):
         """
         Handles user input for player movement.
 
-        - **Polymorphism**: Overrides Game's process_input to add movement logic.
+        -Polymorphism: Overrides Game's process_input to add movement logic.
         """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -140,7 +132,7 @@ class MazeGame(Game):
         """
         Draws the game grid, walls, player, and visited tiles.
 
-        - **Polymorphism**: Overrides Game's render method to display maze-specific visuals.
+        -Polymorphism: Overrides Game's render method to display specific visuals.
         """
         self.window.fill(BG_COLOUR)
         font = pygame.font.SysFont("arial", 50)
@@ -166,4 +158,14 @@ class MazeGame(Game):
 
         # Draw player
         x, y = self.player_pos
-        pygame.draw.circle(self.window, PLAYER_COLOUR, ((y + 0.5) * (HEIGHT/ROW), (x + 0.5) * (HEIGHT/ROW
+        pygame.draw.circle(self.window, PLAYER_COLOUR, ((y + 0.5) * (HEIGHT/ROW), (x + 0.5) * (HEIGHT/ROW)), 32)
+
+        pygame.display.update()
+
+
+# --- Run the Game ---
+if __name__ == "__main__":
+    #Creates and runs an instance of MazeGame.
+
+    game = MazeGame()
+    game.run()
