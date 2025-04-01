@@ -1,5 +1,5 @@
 # adopt from Mr Sullivan's Battleship, write a abstract class for all states and modify according to functionality
-import pygame
+
 from abc import ABC, abstractmethod
 
 class BaseState(ABC):

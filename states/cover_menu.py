@@ -1,9 +1,10 @@
 import pygame
-from base_state import BaseState
+from states.base_state import BaseState
 
 class MenuState(BaseState):
     def __init__(self, screen, game):
-        super().__init__(screen, game)
+        super().__init__(screen)
+        self.game = game
         self.font = pygame.font.SysFont("arial", 50)
         self.start_button = pygame.Rect(125, 250, 150, 50)
         self.quit_button = pygame.Rect(125, 350, 150, 50)

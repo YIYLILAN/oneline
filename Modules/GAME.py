@@ -1,4 +1,7 @@
 import pygame
+from states.cover_menu import MenuState
+from states.game_state import MazeGameState
+
 
 #Constants
 ROW, COL = 6, 4
@@ -33,13 +36,22 @@ class Game:
     - Inheritance: Other classes (mazeGame) can extend this class.
     """
 
-    def __init__(self):
+    def __init__(self, screen):
         """Initialiases the game window and clock"""
-        pygame.init()
+        self.screen = screen
         self.window = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption("ONE_LINE")
         self.clock = pygame.time.Clock()
         self.running = True  # make sure the game loop running
+
+        self.menu = MenuState(self.screen, self)
+        self.maze_game = MazeGameState(self.screen, self)
+        self.state = self.menu
+
+    def change_state(self, new_state):
+        self.state.exit()
+        self.state = new_state
+        self.state.enter()
 
     def process_input(self):
         """
@@ -61,11 +73,17 @@ class Game:
         -Encapsulation: Ensures that the game runs in a structured manner
         """
         while self.running:
-            self.process_input()
-            
-            self.render()
             self.clock.tick(FPS)
+            #self.process_input()
+            
+            events = pygame.event.get()
+            self.state.handle_events(events)
+            self.state.update()
+            #self.render()
+            self.state.render()
+            
         pygame.quit()
+        
 
 
 # --- Maze Game Class (Inherits from Game) ---
@@ -163,9 +181,3 @@ class MazeGame(Game):
         pygame.display.update()
 
 
-# --- Run the Game ---
-if __name__ == "__main__":
-    #Creates and runs an instance of MazeGame.
-
-    game = MazeGame()
-    game.run()
