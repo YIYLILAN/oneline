@@ -78,8 +78,6 @@ class Game:
             
             events = pygame.event.get()
             self.state.handle_events(events)
-            self.state.update()
-            #self.render()
             self.state.render()
             
         pygame.quit()

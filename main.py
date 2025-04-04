@@ -1,7 +1,6 @@
 import pygame
 pygame.init()
-import sys
-import time
+
 from config.setting import WIDTH,HEIGHT
 
 from Modules.GAME import Game

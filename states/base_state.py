@@ -24,10 +24,6 @@ class BaseState(ABC):
         """
         pass
 
-    @abstractmethod
-    def update(self):
-        """Update the game logic for the state."""
-        pass
 
     @abstractmethod
     def render(self):

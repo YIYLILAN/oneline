@@ -16,11 +16,9 @@ class MazeGameState(BaseState):
                 if event.key == pygame.K_ESCAPE:  # Press ESC to return to menu
                     self.game.change_state(self.game.menu)
 
-    def update(self):
-        pass
 
     def render(self):
-        self.screen.fill((200, 200, 250))
+        self.screen.fill((255, 255, 250))
         font = pygame.font.SysFont("arial", 20)
         text = font.render("Maze Game - Press ESC to Menu", True, (0, 0, 0))
         self.screen.blit(text, (50, 250))
