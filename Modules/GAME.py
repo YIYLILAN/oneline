@@ -1,7 +1,7 @@
 import pygame
 from states.cover_menu import MenuState
 from states.game_state import MazeGameState
-
+from states.level_menu import LevelMenuState
 
 #Constants
 ROW, COL = 6, 4
@@ -43,15 +43,22 @@ class Game:
         pygame.display.set_caption("ONE_LINE")
         self.clock = pygame.time.Clock()
         self.running = True  # make sure the game loop running
+        
 
         self.menu = MenuState(self.screen, self)
-        self.maze_game = MazeGameState(self.screen, self)
+        self.level_menu = LevelMenuState(self.screen, self)
+        self.maze_game = None
         self.state = self.menu
 
     def change_state(self, new_state):
         self.state.exit()
         self.state = new_state
         self.state.enter()
+
+    def load_level(self, level_num):
+        self.maze_game = MazeGameState(self.screen, self, level_num)
+        self.change_state(self.maze_game)
+
 
     def process_input(self):
         """
