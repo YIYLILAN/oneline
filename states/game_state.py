@@ -12,7 +12,7 @@ class MazeGameState(BaseState):
 
     def set_level(self, level):
         self.level = level
-        self.player_pos = (0, 3)  # Start pos, can be different per level
+        self.player_pos = (0, 3)  # Start pos, can be different per level how would i change?
         self.visited = {self.player_pos}
         self.load_maze(level)
 
@@ -28,13 +28,14 @@ class MazeGameState(BaseState):
                 [3, 0, 0, 0]
             ]
         elif level == 2:
-            self.maze = [  # Example of harder maze
-                [0, 1, 0, 2],
-                [0, 1, 0, 0],
-                [0, 0, 1, 0],
-                [1, 0, 1, 0],
-                [0, 0, 0, 0],
-                [3, 1, 1, 0]
+            self.maze = [  # harder maze
+                [0, 0, 0, 1, 0, 0],
+                [0, 0, 0, 1, 0, 0],
+                [0, 0, 0, 0, 0, 0],
+                [0, 1, 1, 2, 0, 0],
+                [0, 0, 0, 0, 0, 0],
+                [1, 0, 0, 0, 0, 0],
+                [3, 0, 0, 0, 0, 0]
             ]
         # ... up to level 5
 
