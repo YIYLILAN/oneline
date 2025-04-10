@@ -57,7 +57,8 @@ class Game:
 
     def load_level(self, level_num):
         self.maze_game = MazeGameState(self.screen, self, level_num)
-        self.change_state(self.maze_game)
+        self.change_state(self.maze_game) 
+
 
 
     def process_input(self):
