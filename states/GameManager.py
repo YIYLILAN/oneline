@@ -11,7 +11,7 @@ class GameManager:
         self.running = True
         self.state_stack = []
         self.current_level = None
-        self.unlocked_levels = 1  # Default unlocked up to level 1
+
 
 
         self.game = Game(self.screen, self)
@@ -51,11 +51,6 @@ class GameManager:
         print(f"Loading Level {level_num}")
         self.current_level = level_num
         self.game.load_level(level_num)
-
-    def unlock_next_level(self, level_completed):
-        if level_completed >= self.unlocked_levels and level_completed < 5:
-            self.unlocked_levels = level_completed + 1
-            print(f"Level {self.unlocked_levels} unlocked!")
             
     def get_menu_state(self):
         return self.game.menu

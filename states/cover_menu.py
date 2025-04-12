@@ -21,6 +21,7 @@ class MenuState(BaseState):
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if self.LEVEL_button.press_key():
                     self.game_manager.change_state(self.game_manager.get_level_menu())
+
                     
                 if self.START_button.press_key():
                     self.game_manager.change_state(self.game_manager.maze_game)

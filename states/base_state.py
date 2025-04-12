@@ -1,4 +1,4 @@
-# adopt from Mr Sullivan's Battleship, write a abstract class for all states and modify according to functionality
+
 
 from abc import ABC, abstractmethod
 

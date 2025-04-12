@@ -23,6 +23,9 @@ class MazeGameState(BaseState):
         self.reverse_button = Buttons(100, self.screen.get_height() - 40, reverse_button)
         self.reset_button = Buttons(300, self.screen.get_height() - 40, reset_button)
 
+        self.feedback_message = ""
+        self.feedback_timer = 0  
+
     def enter(self):
         print(f"Entered MazeGameState for Level {self.level}")
 
@@ -36,26 +39,33 @@ class MazeGameState(BaseState):
                 self.player_pos = new_pos
                 self.visited.add(new_pos)
                 self.path_stack.append(new_pos)
+                self.feedback_message = ""
             elif new_pos in self.visited:
-                print("Grid already visited")
+                self.feedback_message = "Tile already visited"
+                self.feedback_timer = pygame.time.get_ticks()
+        else:
+            self.feedback_message = "Invalid move"
+            self.feedback_timer = pygame.time.get_ticks()
 
         if self.player_pos == self.end:
             if len(self.visited) == self.walkable_tiles:
-                print("CONGRATS! You passed all tiles.")
-                self.game_manager.unlock_next_level(self.level)
+                self.feedback_message = "CONGRATS! You passed all tiles."
             else:
-                print("You reached the end but missed some tiles.")
+                self.feedback_message = "You reached the end but didn't pass all tiles."
+            self.feedback_timer = pygame.time.get_ticks()
 
     def reverse_move(self):
         if len(self.path_stack) > 1:
             self.path_stack.pop()
             self.player_pos = self.path_stack[-1]
             self.visited = set(self.path_stack)
+            self.feedback_message = ""
 
     def reset_game(self):
         self.player_pos = self.start
         self.visited = {self.player_pos}
         self.path_stack = [self.player_pos]
+        self.feedback_message = ""
 
     def handle_events(self, events):
         for event in events:
@@ -80,36 +90,53 @@ class MazeGameState(BaseState):
                     self.reset_game()
 
     def render(self):
-        self.screen.fill((0, 0, 0))  # 背景改为黑色
+        self.screen.fill((0, 0, 0))
 
         rows, cols = len(self.maze), len(self.maze[0])
-        usable_height = self.screen.get_height() - self.button_height
-        cell_size = min(self.screen.get_width() // cols, usable_height // rows)
+        usable_height = self.screen.get_height() - self.button_height - 60  # extra margin for feedback
+        usable_width = self.screen.get_width() - 40  # margin for side spacing
+        cell_size = min(usable_width // cols, usable_height // rows)
 
-        offset_y = (usable_height - rows * cell_size) // 2
+        total_grid_height = rows * cell_size
+        total_grid_width = cols * cell_size
+
+        offset_x = (self.screen.get_width() - total_grid_width) // 2
+        offset_y = 40 + (usable_height - total_grid_height) // 2
 
         for i, row in enumerate(self.maze):
             for j, cell in enumerate(row):
-                x = j * cell_size
+                x = offset_x + j * cell_size
                 y = offset_y + i * cell_size
                 rect = pygame.Rect(x, y, cell_size, cell_size)
 
-                pygame.draw.rect(self.screen, (255, 255, 255), rect, 2)  # 白色线框格子
+                pygame.draw.rect(self.screen, (255, 255, 255), rect, 2)
 
                 if cell == 1:
-                    pygame.draw.rect(self.screen, (0, 0, 0), rect)
+                    pygame.draw.rect(self.screen, (255, 255, 255), rect)
                 elif cell == 2:
                     pygame.draw.rect(self.screen, (175, 255, 175), rect)
                 elif cell == 3:
                     pygame.draw.rect(self.screen, (175, 176, 255), rect)
 
         for x, y in self.visited:
-            pygame.draw.circle(self.screen, (200, 195, 230),
-                (y * cell_size + cell_size // 2, offset_y + x * cell_size + cell_size // 2), 6)
+            draw_x = offset_x + y * cell_size + cell_size // 2
+            draw_y = offset_y + x * cell_size + cell_size // 2
+            pygame.draw.circle(self.screen, (200, 195, 230), (draw_x, draw_y), 6)
 
         px, py = self.player_pos
         pygame.draw.circle(self.screen, (255, 206, 227),
-            (py * cell_size + cell_size // 2, offset_y + px * cell_size + cell_size // 2), cell_size // 3)
+            (offset_x + py * cell_size + cell_size // 2, offset_y + px * cell_size + cell_size // 2), cell_size // 3)
+
+        # HUD
+        font = pygame.font.SysFont("arial", 12)
+        esc_msg = font.render("ESC to Return", True, (255, 255, 255))
+        self.screen.blit(esc_msg, (10, 10))
+
+        # Feedback message
+        if self.feedback_message and pygame.time.get_ticks() - self.feedback_timer < 2000:
+            feedback_font = pygame.font.SysFont("arial", 18)
+            text = feedback_font.render(self.feedback_message, True, (255, 255, 255))
+            self.screen.blit(text, ((self.screen.get_width() - text.get_width()) // 2, 20))
 
         self.reverse_button.draw(self.screen)
         self.reset_button.draw(self.screen)
