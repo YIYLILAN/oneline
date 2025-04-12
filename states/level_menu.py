@@ -7,18 +7,14 @@ class LevelMenuState(BaseState):
     def __init__(self, screen, game):
         super().__init__(screen)
         self.game = game
-        self.font = pygame.font.Font("assets/font/Pixeled.ttf", 28)
-        self.level1_button = Buttons(100, 200, level1)
-        self.level2_button = Buttons(100, 300, level2)
-        self.level3_button = Buttons(100, 400, level3)
-        self.level4_button = Buttons(100, 500, level4)
-        self.level5_button = Buttons(100, 600, level5)
+        self.font1 = pygame.font.Font("assets/font/Pixeled.ttf", 28)
+        self.font2 = pygame.font.Font("assets/font/Pixeled.ttf", 15)
 
         # Create level buttons
         self.buttons = []
-        for i in range(5):  # Levels 1 to 5
-            x, y = 200, 150 + i * 80
-            button_image = self.font.render(f" LEVEL {i+1} ", True, (255, 255, 255), (91, 135, 227))
+        for i in range(9):
+            x, y = 200, 150 + i * 50
+            button_image = self.font2.render(f" LEVEL {i+1} ", True, (255, 255, 255), (91, 135, 227))
             self.buttons.append(Buttons(x, y, button_image))
 
     def handle_events(self, events):
@@ -39,7 +35,7 @@ class LevelMenuState(BaseState):
 
     def render(self):
         self.screen.fill((255, 255, 255))
-        menu_title = self.font.render(" LEVELS ", True, (0, 0, 0))
+        menu_title = self.font1.render(" LEVELS ", True, (0, 0, 0))
         self.screen.blit(menu_title, (100, 40))
 
         for button in self.buttons:
