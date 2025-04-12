@@ -4,15 +4,13 @@ from config.setting import title, start_button, level_button, quit_button
 from Modules.BUTTON import Buttons
 
 class MenuState(BaseState):
-    def __init__(self, screen, game):
+    def __init__(self, screen, game_manager): # Add game_manager
         super().__init__(screen)
-        self.game = game
+        self.game_manager = game_manager 
         # self.font = pygame.font.SysFont("arial", 50)
         self.START_button = Buttons(200,260,start_button)
         self.LEVEL_button = Buttons(200, 360 ,level_button)
         self.QUIT_button = Buttons(200, 460 ,quit_button)
-
- 
 
 
     def handle_events(self, events):
@@ -22,10 +20,10 @@ class MenuState(BaseState):
                 exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if self.LEVEL_button.press_key():
-                    self.game.change_state(self.game.level_menu)
+                    self.game_manager.change_state(self.game_manager.get_level_menu())
                     
                 if self.START_button.press_key():
-                    self.game.change_state(self.game.maze_game)
+                    self.game_manager.change_state(self.game_manager.maze_game)
 
                 elif self.QUIT_button.press_key():
                     pygame.quit()

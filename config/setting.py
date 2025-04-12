@@ -4,9 +4,7 @@ import pygame
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
-WIDTH,HEIGHT = 480,600
-
-font = font = pygame.font.Font(None, 36)
+WIDTH,HEIGHT = 400,600
 
 title = pygame.image.load("/Users/Admin/Documents/Y12 ATAR/CS/dev/oneline/assets/image/title.png")
 title = pygame.transform.scale_by(title, 0.16)
@@ -19,6 +17,11 @@ level_button = pygame.transform.scale_by(level_button, 0.15)
 
 quit_button = pygame.image.load("/Users/Admin/Documents/Y12 ATAR/CS/dev/oneline/assets/image/exit.png")
 quit_button = pygame.transform.scale_by(quit_button, 0.10)
+
+reset_button = pygame.image.load("/Users/Admin/Documents/Y12 ATAR/CS/dev/oneline/assets/image/exit.png")
+reset_button = pygame.transform.scale_by(quit_button, 0.9)
+reverse_button = pygame.image.load("/Users/Admin/Documents/Y12 ATAR/CS/dev/oneline/assets/image/exit.png")
+reverse_button = pygame.transform.scale_by(quit_button, 0.9)
 
 level1 = pygame.image.load("/Users/Admin/Documents/Y12 ATAR/CS/dev/oneline/assets/image/level1.png")
 level1 = pygame.transform.scale_by(level1, 0.10)

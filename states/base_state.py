@@ -2,33 +2,23 @@
 
 from abc import ABC, abstractmethod
 
+# --- BaseState Abstract Class ---
 class BaseState(ABC):
     def __init__(self, screen):
         self.screen = screen
 
     def enter(self):
-        """Called when the state becomes active."""
         pass
 
     def exit(self):
-        """Called when the state is exited."""
         pass
 
     @abstractmethod
     def handle_events(self, events):
-        """
-        Handle user input and events.
-
-        Args:
-            events (list): List of pygame events.
-        """
         pass
-
 
     @abstractmethod
     def render(self):
-        """Draw the state's elements on the screen."""
         pass
-
     
 

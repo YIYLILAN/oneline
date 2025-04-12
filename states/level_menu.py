@@ -35,6 +35,8 @@ class LevelMenuState(BaseState):
                 if event.key == pygame.K_ESCAPE:
                     self.game.change_state(self.game.menu)
 
+            
+
     def render(self):
         self.screen.fill((255, 255, 255))
         menu_title = self.font.render(" LEVELS ", True, (0, 0, 0))
