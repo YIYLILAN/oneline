@@ -1,7 +1,6 @@
 import pygame
 from states.base_state import BaseState
 from Modules.BUTTON import Buttons
-from config.setting import level1, level2,level3,level4,level5
 
 class LevelMenuState(BaseState):
     def __init__(self, screen, game):
