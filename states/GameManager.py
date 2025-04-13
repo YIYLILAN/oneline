@@ -5,14 +5,12 @@ from config.setting import WIDTH,HEIGHT
 class GameManager:
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((WIDTH,HEIGHT))
+        self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption("ONE_LINE")
         self.clock = pygame.time.Clock()
         self.running = True
         self.state_stack = []
-        self.current_level = None
-
-
+        self.current_level = 1
 
         self.game = Game(self.screen, self)
         self.state = self.game.menu
@@ -51,7 +49,7 @@ class GameManager:
         print(f"Loading Level {level_num}")
         self.current_level = level_num
         self.game.load_level(level_num)
-            
+
     def get_menu_state(self):
         return self.game.menu
 

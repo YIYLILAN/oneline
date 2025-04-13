@@ -1,4 +1,3 @@
-import pygame
 from states.cover_menu import MenuState
 from states.game_state import MazeGameState
 from states.level_menu import LevelMenuState

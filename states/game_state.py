@@ -99,6 +99,7 @@ class MazeGameState(BaseState):
                             self.game_manager.load_level(next_level)
                     elif self.menu_button and self.menu_button.press_key():
                         self.game_manager.change_state(self.game_manager.get_menu_state())
+            
                 else:
                     if self.reverse_button.press_key():
                         self.reverse_move()
@@ -153,21 +154,21 @@ class MazeGameState(BaseState):
             self.screen.blit(text, ((self.screen.get_width() - text.get_width()) // 2, 20))
 
         if self.level_complete:
-            big_font = pygame.font.Font("assets/font/Pixeled.ttf", 20)
+            big_font = pygame.font.Font("assets/font/Pixeled.ttf", 25)
             win_text = big_font.render("LEVEL COMPLETE!", True, (0, 0, 200))
-            self.screen.blit(win_text, ((self.screen.get_width() - win_text.get_width()) // 2, 250))
+            self.screen.blit(win_text, ((self.screen.get_width() - win_text.get_width()) // 2, 190))
 
-            cont_img = pygame.Surface((160, 40))
+            cont_img = pygame.Surface((200,40))
             cont_img.fill((91, 135, 227))
-            cont_font = pygame.font.SysFont("chicago", 22)
+            cont_font = pygame.font.SysFont("chicago", 30)
             cont_text = cont_font.render("Continue", True, (255, 255, 255))
-            cont_img.blit(cont_text, ((160 - cont_text.get_width()) // 2, 8))
+            cont_img.blit(cont_text, ((cont_text.get_width()) / 2, 8))
 
-            menu_img = pygame.Surface((160, 40))
+            menu_img = pygame.Surface((200, 40))
             menu_img.fill((91, 135, 227))
-            menu_font = pygame.font.SysFont("chicago", 22)
+            menu_font = pygame.font.SysFont("chicago", 30)
             menu_text = menu_font.render("Menu", True, (255, 255, 255))
-            menu_img.blit(menu_text, ((160 - menu_text.get_width()) // 2, 8))
+            menu_img.blit(menu_text, ((menu_text.get_width()) / 2, 8))
 
             self.continue_button = Buttons(240, 320, cont_img)
             self.menu_button = Buttons(240, 380, menu_img)
