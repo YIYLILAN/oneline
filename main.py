@@ -1,4 +1,5 @@
-from states.GameManager import GameManager
+from GameManager import GameManager
+
 
 
 if __name__ == "__main__":

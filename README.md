@@ -45,3 +45,5 @@ The reset button restores the game to its initial state by clearing all the play
 
 Dynamic Level Generation: (Removed)
 The initial idea was to generate levels dynamically to provide new challenges. However, due to time constraints, this feature was removed after confirming with Mr. Sullivan.
+
+Credit: AI tools has been used to carry out the creation of this work

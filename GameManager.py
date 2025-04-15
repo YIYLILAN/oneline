@@ -1,9 +1,10 @@
 import pygame
-from Modules.GAME import Game
+from states.StateFactory import StateFactory
 from config.setting import WIDTH,HEIGHT
 
 class GameManager:
     def __init__(self):
+        #initialise the enitire pygame
         pygame.init()
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption("ONE_LINE")
@@ -12,7 +13,7 @@ class GameManager:
         self.state_stack = []
         self.current_level = 1
 
-        self.game = Game(self.screen, self)
+        self.game = StateFactory(self.screen, self)
         self.state = self.game.menu
 
     def run(self):
@@ -30,22 +31,22 @@ class GameManager:
             pygame.display.flip()
 
         pygame.quit()
-
-    def change_state(self, new_state):
+    
+    def change_state(self, new_state): # Push a new state onto the stack
         if self.state:
             self.state.exit()
             self.state_stack.append(self.state)
         self.state = new_state
         self.state.enter()
 
-    def pop_state(self):
+    def pop_state(self):# Pop current state and return to previous
         if self.state:
             self.state.exit()
         if self.state_stack:
             self.state = self.state_stack.pop()
             self.state.enter()
 
-    def load_level(self, level_num):
+    def load_level(self, level_num): # Load MazeGameState with a specific level
         print(f"Loading Level {level_num}")
         self.current_level = level_num
         self.game.load_level(level_num)

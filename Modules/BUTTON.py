@@ -1,11 +1,12 @@
 import pygame
-        
+
+# Generic Button class 
 class Buttons:
     def __init__(self, x, y, image):
         self.image = image
         self.rect = self.image.get_rect(center=(x, y))  # Define the rect using the image's size and position
-        
-    def press_key(self):
+    
+    def press_key(self): # Checks if the button was clicked
         mouse_pos = pygame.mouse.get_pos()
         return self.rect.collidepoint(mouse_pos) and pygame.mouse.get_pressed()[0]
 

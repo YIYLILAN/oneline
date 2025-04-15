@@ -3,9 +3,8 @@ from states.game_state import MazeGameState
 from states.level_menu import LevelMenuState
 
 
-
 # Base Game Class
-class Game:
+class StateFactory:
     def __init__(self, screen, game_manager): 
         self.screen = screen
         self.game_manager = game_manager 

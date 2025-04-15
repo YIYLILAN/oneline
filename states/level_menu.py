@@ -1,6 +1,7 @@
 import pygame
 from states.base_state import BaseState
 from Modules.BUTTON import Buttons
+from config.LEVELS import LEVELS
 
 class LevelMenuState(BaseState):
     def __init__(self, screen, game):
@@ -11,7 +12,7 @@ class LevelMenuState(BaseState):
 
         # Create level buttons
         self.buttons = []
-        for i in range(9):
+        for i in range(len(LEVELS)):
             x, y = 200, 150 + i * 50
             button_image = self.font2.render(f" LEVEL {i+1} ", True, (255, 255, 255), (91, 135, 227))
             self.buttons.append(Buttons(x, y, button_image))

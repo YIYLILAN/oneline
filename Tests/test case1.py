@@ -1,6 +1,6 @@
 import pygame
 from unittest import mock
-from states.GameManager import GameManager
+from GameManager import GameManager
 from states.game_state import MazeGameState
 from states.level_menu import LevelMenuState
 

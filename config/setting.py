@@ -5,6 +5,7 @@ import pygame
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 WIDTH,HEIGHT = 400,600
+FPS = 60
 
 title = pygame.image.load("/Users/Admin/Documents/Y12 ATAR/CS/dev/oneline/assets/image/title.png")
 title = pygame.transform.scale_by(title, 0.16)

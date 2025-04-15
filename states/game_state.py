@@ -4,22 +4,26 @@ from config.LEVELS import LEVELS, find_tile, count_walkable
 from Modules.BUTTON import Buttons
 from config.setting import reverse_button, reset_button
 
+
+# --- MazeGameState: Active game screen where maze is played ---
 class MazeGameState(BaseState):
     def __init__(self, screen, game_manager, level):
         super().__init__(screen)
         self.game_manager = game_manager
         self.level = level
         self.maze = LEVELS[level]  # Load maze layout for the current level
-        self.start = find_tile(self.maze, 2)  # Find start tile (marked with '2')
-        self.end = find_tile(self.maze, 3)    # Find end tile (marked with '3')
+        self.start = find_tile(self.maze, 2)
+        self.end = find_tile(self.maze, 3)
         self.player_pos = self.start
+
+        # Tracking player's path and progress
         self.visited = {self.player_pos}      # Track visited tiles
         self.path_stack = [self.player_pos]   # Stack for reverse movement
         self.walkable_tiles = count_walkable(self.maze)  # Number of valid tiles to step on
 
-        self.button_height = 80
+        self.button_height = 80  # Space reserved at bottom for buttons
 
-        # UI buttons for reverse and reset functionality
+        # buttons for reverse and reset functionality
         self.reverse_button = Buttons(100, self.screen.get_height() - 40, reverse_button)
         self.reset_button = Buttons(300, self.screen.get_height() - 40, reset_button)
 
@@ -38,7 +42,7 @@ class MazeGameState(BaseState):
         # Prevent movement if level is already complete
         if self.level_complete:
             return
-
+        # Calculate new position
         new_x = self.player_pos[0] + dx
         new_y = self.player_pos[1] + dy
         new_pos = (new_x, new_y)
@@ -90,6 +94,7 @@ class MazeGameState(BaseState):
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.game_manager.pop_state()  # Return to previous state
+
                 elif event.key == pygame.K_UP:
                     self.move_player(-1, 0)
                 elif event.key == pygame.K_DOWN:
@@ -98,7 +103,8 @@ class MazeGameState(BaseState):
                     self.move_player(0, -1)
                 elif event.key == pygame.K_RIGHT:
                     self.move_player(0, 1)
-            elif event.type == pygame.MOUSEBUTTONDOWN:
+
+            elif event.type == pygame.MOUSEBUTTONDOWN: 
                 if self.level_complete:
                     # After win, either continue to next level or return to menu
                     if self.continue_button and self.continue_button.press_key():
@@ -159,7 +165,7 @@ class MazeGameState(BaseState):
         esc_msg = font.render("ESC to Return", True, (255, 255, 255))
         self.screen.blit(esc_msg, (10, 10))
 
-        # Feedback message (e.g., "Invalid move", "Level Complete!")
+        # Feedback message 
         if self.feedback_message and pygame.time.get_ticks() - self.feedback_timer < 2000:
             feedback_font = pygame.font.SysFont("arial", 18)
             text = feedback_font.render(self.feedback_message, True, (255, 255, 255))
@@ -191,7 +197,7 @@ class MazeGameState(BaseState):
             self.continue_button.draw(self.screen)
             self.menu_button.draw(self.screen)
         else:
-            # In-game utility buttons
+            # In game utility buttons
             self.reverse_button.draw(self.screen)
             self.reset_button.draw(self.screen)
 
